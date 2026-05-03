@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0a0a0a;
+  --accent: #f97316;
+  --secondary: #3b82f6;
+}
+
+* {
+  cursor: none !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden; /* clip horizontal overflow here, not on body — body overflow-x:hidden breaks position:sticky */
+}
+
+body {
+  background: #0a0a0a;
+  color: #e5e7eb;
+  font-family: Inter, "SF Pro Display", system-ui, sans-serif;
+}
+
+::selection {
+  background: #f9731640;
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f97316;
+  border-radius: 2px;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
