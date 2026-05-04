@@ -5,12 +5,11 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "Viswa Yadeedya — Full Stack Software Engineer",
-  description:
-    "Portfolio of Viswa Yadeedya — Full Stack Software Engineer building systems that scale.",
+  title: "Viswa Yadeedya — Full Stack Engineer",
+  description: "Full stack software engineer building AI infrastructure.",
   openGraph: {
     title: "Viswa Yadeedya",
-    description: "Full Stack Software Engineer",
+    description: "Full Stack Engineer",
     type: "website",
   },
 };

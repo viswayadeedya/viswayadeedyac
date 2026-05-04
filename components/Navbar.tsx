@@ -30,7 +30,7 @@ export default function Navbar({ visible }: NavbarProps) {
           initial={{ y: -80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed top-5 left-[75%] -translate-x-1/2 z-[100]"
+          className="fixed top-5 left-[70%] -translate-x-1/2 z-[100]"
         >
           <nav
             className={`flex items-center gap-2 px-5 py-2.5 rounded-full border transition-all duration-300 ${
