@@ -14,9 +14,32 @@ type Project = {
   stat: string;
   accent: string;
   badge?: string;
+  url?: string;
 };
 
 const projects: Project[] = [
+  {
+    name: "SelahPath™",
+    tagline: "Deep Bible Study",
+    description:
+      "A verse-by-verse Bible study tool that reveals what your translation couldn't fit — letter by letter, layer by layer, word by word. Built on a Next.js + GPT-4o pipeline with Hebrew and Greek root analysis, ancient pictograph letter breakdowns, PARDES rabbinic interpretation layers, and Myron Golden's four-level teaching framework. Analyses are permanently cached in PostgreSQL — every study is instant the second time. Supports KJV, WEB, BBE, and IRVTel.",
+    tags: ["Next.js", "GPT-4o", "PostgreSQL", "Prompt Engineering", "Hebrew/Greek", "Vercel"],
+    stat: "Selah — pause and reflect.",
+    accent: "#f97316",
+    badge: "Early MVP",
+    url: "https://selahpath.vercel.app",
+  },
+  {
+    name: "Clarito",
+    tagline: "Visual Learning Canvas",
+    description:
+      "A chapter-based visual canvas for people who learn by drawing. Built for visual thinkers who need to sketch connections, not bullet points. Supabase + FastAPI backend with JWT auth, RBAC, and auto-saving Excalidraw canvas stored as JSONB. Scroll-driven landing page with a 120-frame cinematic sequence.",
+    tags: ["FastAPI", "React", "PostgreSQL", "Excalidraw", "Python", "Supabase"],
+    stat: "To draw is to understand.",
+    accent: "#3b82f6",
+    badge: "Early MVP",
+    url: "https://getclarito.vercel.app",
+  },
   {
     name: "Lawgivr",
     tagline: "Micro-Donation Platform",
@@ -260,6 +283,26 @@ function buildCardTexture(
   }
   ctx.globalAlpha = 1;
 
+  // Live link indicator — only for projects with a URL
+  if (project.url) {
+    const label = "Live →  " + project.url.replace("https://", "");
+    ctx.font = `500 ${active ? 22 : 18}px 'SF Mono', 'Fira Code', monospace`;
+    const lw = ctx.measureText(label).width + 32;
+    const lx = PX;
+    const ly = H - 70;
+    ctx.globalAlpha = active ? 0.9 : 0.4;
+    ctx.fillStyle = active ? `${project.accent}22` : `${project.accent}0a`;
+    ctx.strokeStyle = active ? `${project.accent}80` : `${project.accent}30`;
+    ctx.lineWidth = active ? 1.5 : 1;
+    ctx.beginPath();
+    ctx.roundRect(lx, ly, lw, active ? 36 : 30, 6);
+    ctx.fill();
+    ctx.stroke();
+    ctx.fillStyle = active ? project.accent : `${project.accent}88`;
+    ctx.fillText(label, lx + 16, ly + (active ? 25 : 21));
+    ctx.globalAlpha = 1;
+  }
+
   return new THREE.CanvasTexture(canvas);
 }
 
@@ -363,6 +406,7 @@ function ProjectCard({
   const matRef = useRef<THREE.ShaderMaterial>(null);
   const glitchRef = useRef(0);
   const prevActiveRef = useRef(false);
+  const isActiveRef = useRef(false);
 
   // Build initial inactive texture on mount
   const initTex = useMemo(() => buildCardTexture(project, false), [project]);
@@ -391,6 +435,7 @@ function ProjectCard({
       mat.uniforms.uMap.value = buildCardTexture(project, isActive);
       glitchRef.current = isActive ? 1.0 : 0.6;
       prevActiveRef.current = isActive;
+      isActiveRef.current = isActive;
     }
 
     // Lerp coefficient (frame-rate independent)
@@ -421,7 +466,23 @@ function ProjectCard({
   const startX = (index - (total - 1) / 2) * SPREAD_X;
 
   return (
-    <mesh ref={meshRef} position={[startX, 0, 0]}>
+    <mesh
+      ref={meshRef}
+      position={[startX, 0, 0]}
+      onClick={() => {
+        if (project.url && isActiveRef.current) {
+          window.open(project.url, "_blank", "noopener,noreferrer");
+        }
+      }}
+      onPointerOver={() => {
+        if (project.url && isActiveRef.current) {
+          document.body.style.cursor = "pointer";
+        }
+      }}
+      onPointerOut={() => {
+        document.body.style.cursor = "auto";
+      }}
+    >
       <planeGeometry args={[CARD_W, CARD_H]} />
       <shaderMaterial
         ref={matRef}
