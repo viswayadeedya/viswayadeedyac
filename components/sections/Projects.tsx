@@ -22,7 +22,7 @@ const projects: Project[] = [
     name: "SelahPath™",
     tagline: "Deep Bible Study",
     description:
-      "A verse-by-verse Bible study tool that reveals what your translation couldn't fit: letter by letter, layer by layer, word by word. Built on a Next.js + GPT-4o pipeline with Hebrew and Greek root analysis, ancient pictograph letter breakdowns, PARDES rabbinic interpretation layers, and Myron Golden's four-level teaching framework. Analyses are permanently cached in PostgreSQL. Every study is instant the second time. Supports KJV, WEB, BBE, and IRVTel.",
+      "A verse-by-verse Bible study tool revealing what your translation couldn't fit. Built on Next.js + GPT-4o with Hebrew and Greek root analysis, PARDES rabbinic interpretation layers, and Myron Golden's four-level teaching framework. Results cached in PostgreSQL. Supports KJV, WEB, BBE, and IRVTel.",
     tags: ["Next.js", "GPT-4o", "PostgreSQL", "Prompt Engineering", "Hebrew/Greek", "Vercel"],
     stat: "Selah — pause and reflect.",
     accent: "#f97316",
